@@ -24,7 +24,7 @@ REQUIRES_PYTHON = '>=3.6.0'
 
 # What packages are required for this module to be executed?
 REQUIRED = [
-    'matplotlib', 'numpy', 'pandas', 'scipy', 'mskit', 'seaborn'
+    'matplotlib', 'numpy', 'pandas', 'scipy', 'mskit', 'seaborn', 'cv2'
 ]
 
 # What packages are optional?

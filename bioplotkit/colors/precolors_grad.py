@@ -37,6 +37,16 @@ PreColorDict = {
 }
 
 
+class FavorGradColor:
+    GreyBlueRed = rgb_hsl.gradient_hsl(
+        (230, 235, 240), (30, 40, 60), 150, value_scale=256)[::-1] + rgb_hsl.gradient_hsl(
+        (245, 250, 255), (230, 235, 240), 35, value_scale=256)[::-1] + rgb_hsl.gradient_hsl(
+        (255, 250, 245), (240, 230, 220), 35, value_scale=256) + rgb_hsl.gradient_hsl(
+        (240, 230, 220), (100, 10, 10), 150, value_scale=256)
+    BlueRed = sns.color_palette('RdBu_r', n_colors=400)
+    DardRed = sns.mpl_palette("Reds_d", 400)[::-1]
+
+
 def draw_grad_precolors():
     c_num = len(PreColorDict)
     f, axes = plt.subplots(1, c_num, figsize=(c_num, 1), dpi=150)
