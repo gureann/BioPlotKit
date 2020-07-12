@@ -9,6 +9,13 @@ def remove_xy_ticks(ax=None):
     ax.yaxis.set_visible(False)
 
 
+def remove_target_spines(spine_pos, ax=None):
+    if ax is None:
+        ax = plt.gca()
+    for _ in list(spine_pos):
+        ax.spines[_].set_visible(False)
+
+
 def remove_all_spines(ax=None):
     if ax is None:
         ax = plt.gca()
@@ -33,3 +40,9 @@ def set_thousand_separate(ax=None, axis=('x', 'y')):
             ax.get_xaxis().set_major_formatter(FuncFormatter(lambda x, p: format(int(x), ',')))
         elif a == 'y':
             ax.get_yaxis().set_major_formatter(FuncFormatter(lambda x, p: format(int(x), ',')))
+
+
+def set_bottom_spine_pos0(ax=None):
+    if ax is None:
+        ax = plt.gca()
+    ax.spines['bottom'].set_position(('data', 0))

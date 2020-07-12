@@ -103,3 +103,11 @@ def scatter_heatmap(df, use_row=None, use_col=None,
         plt.savefig(save + '.PCC.png')
 
     return df, scaled_df
+
+
+def multilayer_heatmap():
+    """
+    Draw multi row in one block with multi df input with customed bar gap and group gap.
+    Fig3
+    """
+    pass

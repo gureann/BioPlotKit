@@ -1,6 +1,6 @@
 
 
-def color_bar(two_side, show_tick, figure_direct, anno_loc, ax):
+def color_bar(two_side, show_ticks, show_ticklabels, figure_direct, anno_loc, anno_rotation, anno_offsite, ax):
     ax.set_xlim(0, 1)
     ax.set_ylim(0, 1)
 

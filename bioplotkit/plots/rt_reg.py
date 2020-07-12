@@ -37,7 +37,8 @@ def rt_reg(obse_rt, pred_rt,
            scatter_size=1.5, scatter_color='#5250AD',
            rt_unit='units',
            anno_fontsize=10, anno_gap=12.5, anno_group_row_gap: int = 1,
-           title='RT correlation', ax=None, save=None):
+           x_label=None, y_label=None, title='RT correlation',
+           ax=None, save=None):
     if ax is None:
         ax = plt.gca()
     min_axis, max_axis = define_reg_ax(ax, obse_rt, pred_rt, rt_unit)
@@ -79,5 +80,7 @@ def rt_reg(obse_rt, pred_rt,
 
     if save:
         plt.savefig(save + '.RT.png')
+
+    plt.show()
 
     return scat, annotate_text_ex, annotate_text_info
