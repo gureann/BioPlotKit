@@ -60,5 +60,3 @@ def comp_bar(data_dict, base_key=None, comp_keys=None,
 
     if save:
         plt.savefig(save + '.Comp.png')
-
-    plt.show()

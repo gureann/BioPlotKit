@@ -6,7 +6,7 @@ from scipy.stats import pearsonr
 from mskit.stats import delta_tx, r_square
 
 
-def define_reg_ax(ax, rt_1, rt_2, rt_unit, expand=0.2):
+def define_reg_ax(ax, rt_1, rt_2, x_label, y_label, rt_unit, expand=0.2):
     rt_range = (min(min(rt_1), min(rt_2)), max(max(rt_1), max(rt_2)))
     rt_width = rt_range[1] - rt_range[0]
     min_axis = rt_range[0] - rt_width * expand
@@ -18,8 +18,8 @@ def define_reg_ax(ax, rt_1, rt_2, rt_unit, expand=0.2):
         unit_suffix = f' ({rt_unit})'
     else:
         unit_suffix = ''
-    ax.set_xlabel(f'Observerd RT{unit_suffix}')
-    ax.set_ylabel(f'Predicted RT{unit_suffix}')
+    ax.set_xlabel(f'{x_label}{unit_suffix}')
+    ax.set_ylabel(f'{y_label}{unit_suffix}')
     return min_axis, max_axis
 
 
@@ -37,11 +37,11 @@ def rt_reg(obse_rt, pred_rt,
            scatter_size=1.5, scatter_color='#5250AD',
            rt_unit='units',
            anno_fontsize=10, anno_gap=12.5, anno_group_row_gap: int = 1,
-           x_label=None, y_label=None, title='RT correlation',
+           x_label='Observerd RT', y_label='Predicted RT', title='RT correlation',
            ax=None, save=None):
     if ax is None:
         ax = plt.gca()
-    min_axis, max_axis = define_reg_ax(ax, obse_rt, pred_rt, rt_unit)
+    min_axis, max_axis = define_reg_ax(ax, obse_rt, pred_rt, x_label, y_label, rt_unit)
 
     if ex_line:
         ex_dict = ex_line_dict(obse_rt, pred_rt, ex_line)
@@ -63,14 +63,14 @@ def rt_reg(obse_rt, pred_rt,
             except IndexError:
                 _color = 'k'
             if _i < ex_line_num:
-                plt.plot([min_axis, max_axis], [min_axis - _ex_value / 2, max_axis - _ex_value / 2], color=_color, linewidth=ex_linewidth)
-                plt.plot([min_axis, max_axis], [min_axis + _ex_value / 2, max_axis + _ex_value / 2], color=_color, linewidth=ex_linewidth)
+                ax.plot([min_axis, max_axis], [min_axis - _ex_value / 2, max_axis - _ex_value / 2], color=_color, linewidth=ex_linewidth)
+                ax.plot([min_axis, max_axis], [min_axis + _ex_value / 2, max_axis + _ex_value / 2], color=_color, linewidth=ex_linewidth)
             annotate_text_ex.append(rf'$\Delta$t$_{{{_ex_num}\%}}$ = {_ex_value:.3f} ({rt_unit})')
 
     p = pearsonr(obse_rt, pred_rt)
     r_2 = r_square(obse_rt, pred_rt)
 
-    annotate_text_info = [f'PCC: {p[0]:.4f}', f'R$^2$: {r_2:.4f}', f'n={len(obse_rt)}']
+    annotate_text_info = [f'PCC: {p[0]:.4f}', f'R$^2$: {r_2:.4f}', f'n={format(len(obse_rt), ",")}']
 
     annotation = annotate_text_ex + [''] * anno_group_row_gap + annotate_text_info
     for _i, _anno in enumerate(annotation):
@@ -80,7 +80,5 @@ def rt_reg(obse_rt, pred_rt,
 
     if save:
         plt.savefig(save + '.RT.png')
-
-    plt.show()
 
     return scat, annotate_text_ex, annotate_text_info

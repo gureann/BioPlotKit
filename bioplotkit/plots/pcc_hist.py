@@ -53,6 +53,4 @@ def pcc_hist(pcc_list,
     if save:
         plt.savefig(save + '.PCC.png')
 
-    plt.show()
-
     return hist, mid_line, pcc_anno_list
