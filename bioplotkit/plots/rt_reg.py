@@ -6,6 +6,31 @@ from scipy.stats import pearsonr
 from mskit.stats import delta_tx, r_square
 
 
+# TODO Reg class
+"""
+将绘制函数放在 class 中还是独立的函数中？
+
+class XXX:
+    def __init__(xxxxx)
+        self.figure = None
+        self.ax = None
+        self.data = None
+    def draw(xxxxx):
+        
+        
+def rt_reg(Other_Params=None, ..., XXX=None):
+    if XXX=None:
+        x = XXX(....)
+        x.draw()
+        return x
+    else:
+        x = XXX
+        update x param
+        x.draw()
+        return x
+"""
+
+
 def define_reg_ax(ax, rt_1, rt_2, x_label, y_label, rt_unit, expand=0.2):
     rt_range = (min(min(rt_1), min(rt_2)), max(max(rt_1), max(rt_2)))
     rt_width = rt_range[1] - rt_range[0]
@@ -33,10 +58,12 @@ def ex_line_dict(obse_rt, pred_rt, ex_line):
 
 
 def rt_reg(obse_rt, pred_rt,
-           ex_line=(95, ), ex_line_num=1, ex_linewidth=1., diagonal=True, diagonal_linewidth=1.,
+           ex_line=(95, 85, 75), ex_line_num=1, ex_linewidth=1., diagonal=True, diagonal_linewidth=1.,
            scatter_size=1.5, scatter_color='#5250AD',
-           rt_unit='units',
-           anno_fontsize=10, anno_gap=12.5, anno_group_row_gap: int = 1,
+           rt_unit='units',  # rt_units -> label_suffix
+           anno_fontsize=10, anno_gap=12.5, anno_group_row_gap: int = 1,  # anno text, unit of anno number
+           # PCC:True/False, R2:True/False, n:True/False, combine these params to a dict and the order is defined as the key order in dict
+           # How to add other params    active=False -> Return the class and need to run .active_anno() method
            x_label='Observerd RT', y_label='Predicted RT', title='RT correlation',
            ax=None, save=None):
     if ax is None:

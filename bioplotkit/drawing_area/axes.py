@@ -1,8 +1,13 @@
 import matplotlib.pyplot as plt
 
 
-def isometric_axes(left_init=0.05, bottom_init=0.05, right_end=0.9, top_end=0.9, ax_col_gap=0.1, ax_row_gap=0.1, row_num=2, col_num=5, total_num=None, *figure_args):
-    f = plt.figure(*figure_args)
+def isometric_axes(left_init=0.05, bottom_init=0.05, right_end=0.9, top_end=0.9,
+                   ax_col_gap=0.1, ax_row_gap=0.1,
+                   row_num=2, col_num=5,
+                   total_num=None,
+                   f=None, *figure_args):  # TODO Support for inset_axes
+    if not f:
+        f = plt.figure(*figure_args)
 
     if isinstance(ax_col_gap, float) or isinstance(ax_col_gap, int):
         ax_col_gap = [ax_col_gap] * (col_num - 1)

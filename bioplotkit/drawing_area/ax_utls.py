@@ -12,7 +12,9 @@ def remove_xy_ticks(ax=None):
 def remove_target_spines(spine_pos, ax=None):
     if ax is None:
         ax = plt.gca()
-    for _ in list(spine_pos):
+    if isinstance(spine_pos, str):
+        spine_pos = [spine_pos]
+    for _ in spine_pos:
         ax.spines[_].set_visible(False)
 
 
