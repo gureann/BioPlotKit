@@ -10,8 +10,13 @@ def pcc_hist(pcc_list,
              percent_list=(90, 80, 70),
              label_fontsize=8,
              anno_fontsize=8, anno_y_site=(0.75, 0.5, 0.4),
+             anno_metric_name='PCC',
+             x_lim=(0, 1),
              x_label='PCC', y_label="Number of test peptide precursors", title=None,
              ax=None, save=None):
+
+    # TODO Other metric like SA in annotation
+    # TODO Value of metric with certain percentage
     if ax is None:
         ax = plt.gca()
 
@@ -21,7 +26,7 @@ def pcc_hist(pcc_list,
 
     set_thousand_separate(ax, axis=('y', ))
 
-    ax.set_xlim(0, 1)
+    ax.set_xlim(*x_lim)
     ax.set_xticks(np.linspace(0, 1, 6))
 
     hist = ax.hist(pcc_list, bins=bin_num, alpha=bin_alpha, color=bin_color, edgecolor='k')
@@ -36,7 +41,7 @@ def pcc_hist(pcc_list,
 
     percent_list = sorted(map(lambda x: x/100, percent_list))
     pcc_percent_list = []
-    anno_title = '>PCC Percentage'
+    anno_title = f'>{anno_metric_name} Percentage'
     pcc_anno_list = [anno_title]
     for pcc in percent_list:
         ratio = np.sum(pcc_list > pcc) / pcc_num
@@ -44,13 +49,14 @@ def pcc_hist(pcc_list,
         pcc_anno_list.append(f'>{pcc:.2f}  {ratio:.1%}')
 
     ax.annotate('\n'.join(pcc_anno_list), xy=(0.05, ax.get_ylim()[1] * anno_y_site[0]), fontsize=anno_fontsize)
-    ax.annotate('Median PCC: {:.3f}'.format(median_pcc), xy=(0.05, ax.get_ylim()[1] * anno_y_site[1]), fontsize=anno_fontsize)
+    ax.annotate('Median {}: {:.3f}'.format(anno_metric_name, median_pcc),
+                xy=(0.05, ax.get_ylim()[1] * anno_y_site[1]), fontsize=anno_fontsize)
     ax.annotate(r'n = {:,}'.format(pcc_num), xy=(0.05, ax.get_ylim()[1] * anno_y_site[2]), fontsize=anno_fontsize)
 
     if title:
         ax.set_title(title)
 
     if save:
-        plt.savefig(save + '.PCC.png')
+        plt.savefig(save + f'.{anno_metric_name}.png')
 
     return hist, mid_line, pcc_anno_list
