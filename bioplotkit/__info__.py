@@ -1,5 +1,5 @@
 
-_VERSION = (0, 1, 1)
+_VERSION = (0, 1, 2)
 __version__ = '.'.join(map(str, _VERSION))
 
 __package_name__ = 'bioplotkit'
