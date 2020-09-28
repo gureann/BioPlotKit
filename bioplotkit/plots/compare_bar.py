@@ -6,6 +6,7 @@ from matplotlib import pyplot as plt
 
 
 def comp_bar(data_dict, base_key=None, comp_keys=None,
+             filter_func=None,  # 对 input data dict 的每个 value 做一步 filter
              base_x_pos=1,
              bar_width=0.4,
              share_color=None, new_color=None, loss_color=None,
@@ -30,6 +31,8 @@ def comp_bar(data_dict, base_key=None, comp_keys=None,
     ax_utls.set_bottom_spine_pos0(ax)
 
     base_data = set(data_dict[base_key])
+    if filter_func:
+        base_data = filter_func(base_data)
     base_len = len(base_data)
     ax.bar(base_x_pos, base_len, width=bar_width, bottom=0,
            color=share_color, lw=bar_edge_width, edgecolor=bar_edge_color)
@@ -39,6 +42,8 @@ def comp_bar(data_dict, base_key=None, comp_keys=None,
     for key_index, each_comp_key in enumerate(comp_keys):
         bar_x_pos = key_index + base_x_pos + 1
         comp_data = set(data_dict[each_comp_key])
+        if filter_func:
+            comp_data = filter_func(comp_data)
 
         new_data_num = len(comp_data - base_data)
         share_data_num = len(comp_data & base_data)
