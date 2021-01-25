@@ -19,11 +19,11 @@ def comp_bar(data_dict, base_key=None, comp_keys=None,
     if ax is None:
         ax = plt.gca()
 
-    if not share_color:
+    if share_color is None:
         share_color = PreColorDict['Blue'][75]
-    if not new_color:
+    if new_color is None:
         new_color = PreColorDict['Red'][60]
-    if not loss_color:
+    if loss_color is None:
         loss_color = PreColorDict['Grey'][60]
 
     ax_utls.remove_xy_ticks(ax)
