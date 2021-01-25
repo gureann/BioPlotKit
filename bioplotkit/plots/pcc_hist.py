@@ -12,11 +12,14 @@ def pcc_hist(pcc_list,
              anno_fontsize=8, anno_y_site=(0.75, 0.5, 0.4),
              anno_metric_name='PCC',
              x_lim=(0, 1),
+             data_warning=False,
              x_label='PCC', y_label="Number of test peptide precursors", title=None,
              ax=None, save=None):
 
     # TODO Other metric like SA in annotation
     # TODO Value of metric with certain percentage
+
+    # TODO Check data (e.g. NA values)
     if ax is None:
         ax = plt.gca()
 

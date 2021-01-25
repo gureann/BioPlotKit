@@ -65,6 +65,7 @@ def rt_reg(obse_rt, pred_rt,
            # PCC:True/False, R2:True/False, n:True/False, combine these params to a dict and the order is defined as the key order in dict
            # How to add other params    active=False -> Return the class and need to run .active_anno() method
            x_label='Observerd RT', y_label='Predicted RT', title='RT correlation',
+           scat_label=None,
            ax=None, save=None):
     if ax is None:
         ax = plt.gca()
@@ -77,7 +78,7 @@ def rt_reg(obse_rt, pred_rt,
 
     ax.set_title(title)
 
-    scat = ax.scatter(obse_rt, pred_rt, c=scatter_color, s=scatter_size)
+    scat = ax.scatter(obse_rt, pred_rt, c=scatter_color, s=scatter_size, label=scat_label)
 
     if diagonal:
         ax.plot([min_axis, max_axis], [min_axis, max_axis], color='k', linewidth=diagonal_linewidth)
